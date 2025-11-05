@@ -15,35 +15,7 @@ Su objetivo es ofrecer una interfaz moderna, responsive y fácil de mantener, co
 
 ---
 
-## 📂 Estructura del proyecto
-frontend/
-│
-├── public/ # Archivos estáticos
-├── src/
-│ ├── assets/ # Imágenes e íconos SVG
-│ ├── components/ # Componentes reutilizables (Navbar, Hero, Stats, etc.)
-│ │ ├── Card.jsx
-│ │ ├── CardSection.jsx
-│ │ ├── Gallery.jsx
-│ │ ├── Hero.jsx
-│ │ ├── Stats.jsx
-│ │ ├── Footer.jsx
-│ │ └── Login.jsx
-│ ├── App.jsx # Componente raíz
-│ ├── main.jsx # Punto de entrada principal
-│ ├── index.css # Configuración base de Tailwind
-│
-├── eslint.config.js
-├── index.html
-├── package-lock.json
-├── package.json
-└── vite.config.js
-
----
-
 ## ⚙️ Instalación y configuración
-
-### 1️⃣ Clonar el repositorio
 
 ```bash
 git clone https://github.com/tu-usuario/frontend-proyecto.git
