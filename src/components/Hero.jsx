@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Hero({onNavigate, refs, onComenzarClick}) {
     return (
         <section className="bg-slate-800 text-center text-white py-20">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -8,10 +8,16 @@ export default function Hero() {
                 Conoce nuestros servicios y soluciones digitales diseñadas para hacer crecer tu negocio.
             </p>
             <div className="flex justify-center gap-4">
-                <button className="bg-emerald-500 px-6 py-3 rounded-lg hover:bg-emerald-600">
+                <button 
+                    onClick={onComenzarClick}
+                    className="bg-emerald-500 px-6 py-3 rounded-lg hover:bg-emerald-600"
+                >
                     Comenzar
                 </button>
-                <button className="border border-emerald-500 px-6 py-3 rounded-lg hover:bg-emerald-500 hover:text-white">
+                <button 
+                    onClick={() => onNavigate(refs.statsRef)} 
+                    className="border border-emerald-500 px-6 py-3 rounded-lg hover:bg-emerald-500 hover:text-white"
+                >
                     Más información
                 </button>
             </div>

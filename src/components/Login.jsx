@@ -15,16 +15,6 @@ export default function Login({ onBackClick, onLoginSuccess }) {
 
         // Llamar a la función enviada por App
         onLoginSuccess(role);
-
-        // Aquí podrías llamar a tu API de Spring Boot:
-        // fetch("http://localhost:8080/api/login", { ... })
-        /*
-        console.log("Login attempt:", { email, password });
-
-        alert("Inicio de sesión exitoso ✅ (simulación)");
-        setEmail("");
-        setPassword("");
-        */
     };
 
     return (

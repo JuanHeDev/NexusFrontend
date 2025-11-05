@@ -40,13 +40,23 @@ function App() {
       />
       {/* Renderizado condicional */}
       {showLogin ? (
-        <Login 
-          onBackClick={() => setShowLogin(false)} 
+        <Login
+          onBackClick={() => setShowLogin(false)}
           onLoginSuccess={handleLoginSuccess}
         />
       ) : (
         <>
-          <section ref={heroRef}><Hero /></section>
+          <section ref={heroRef}>
+            <Hero
+              onComenzarClick={() => setShowLogin(true)}
+              onNavigate={(section) => {
+                section.current?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              refs={{
+                statsRef
+              }}
+            />
+          </section>
           <section ref={serviciosRef}><CardSection /></section>
           <section ref={galeriaRef}><Gallery /></section>
           <section ref={statsRef}><Stats /></section>
