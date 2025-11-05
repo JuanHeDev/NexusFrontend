@@ -1,16 +1,58 @@
-# React + Vite
+# 🌐 Frontend - Proyecto FullStack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene la **parte frontend** del proyecto web, desarrollada con **React + Vite** y estilizada con **TailwindCSS**.  
+Su objetivo es ofrecer una interfaz moderna, responsive y fácil de mantener, conectándose al backend desarrollado con **Spring Boot** y una base de datos **MySQL**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías principales
 
-## React Compiler
+- ⚛️ **React** — Librería para la construcción de interfaces dinámicas.
+- ⚡ **Vite** — Entorno de desarrollo rápido y ligero.
+- 🎨 **TailwindCSS** — Framework CSS para diseño moderno y responsivo.
+- 🧩 **JavaScript (ES6+)** — Lógica de componentes y manejo de estado.
+- 🔄 **Fetch / Axios (futuro)** — Conexión con el backend vía API REST.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📂 Estructura del proyecto
+frontend/
+│
+├── public/ # Archivos estáticos
+├── src/
+│ ├── assets/ # Imágenes e íconos SVG
+│ ├── components/ # Componentes reutilizables (Navbar, Hero, Stats, etc.)
+│ │ ├── Card.jsx
+│ │ ├── CardSection.jsx
+│ │ ├── Gallery.jsx
+│ │ ├── Hero.jsx
+│ │ ├── Stats.jsx
+│ │ ├── Footer.jsx
+│ │ └── Login.jsx
+│ ├── App.jsx # Componente raíz
+│ ├── main.jsx # Punto de entrada principal
+│ ├── index.css # Configuración base de Tailwind
+│
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+└── vite.config.js
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ Instalación y configuración
+
+### 1️⃣ Clonar el repositorio
+
+```bash
+git clone https://github.com/tu-usuario/frontend-proyecto.git
+cd frontend-proyecto
+```
+```bash
+npm install
+```
+```bash
+npm run dev
+```
+
