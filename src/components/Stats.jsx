@@ -1,13 +1,16 @@
 import { useState } from "react";
+import libro from "../assets/libro.svg";
+import medalla from "../assets/medalla.svg";
+import usuario from "../assets/usuario.svg";
 
 export default function Stats() {
     // Estado para controlar qué vista se muestra
     const [view, setView] = useState("logros");
 
     const logros = [
-        { label: "Clientes", value: "120+" },
-        { label: "Proyectos", value: "45" },
-        { label: "Premios", value: "8" },
+        { label: "Clientes", value: "120+", icon: usuario },
+        { label: "Proyectos", value: "45", icon: libro },
+        { label: "Premios", value: "8", icon: medalla },
     ];
 
     return (
@@ -21,8 +24,8 @@ export default function Stats() {
                 <button
                     onClick={() => setView("logros")}
                     className={`px-6 py-2 rounded-lg font-medium transition ${view === "logros"
-                            ? "bg-emerald-500 text-white"
-                            : "border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white"
+                        ? "bg-emerald-500 text-white"
+                        : "border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white"
                         }`}
                 >
                     Logros
@@ -30,8 +33,8 @@ export default function Stats() {
                 <button
                     onClick={() => setView("contacto")}
                     className={`px-6 py-2 rounded-lg font-medium transition ${view === "contacto"
-                            ? "bg-emerald-500 text-white"
-                            : "border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white"
+                        ? "bg-emerald-500 text-white"
+                        : "border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white"
                         }`}
                 >
                     Contacto
@@ -43,10 +46,22 @@ export default function Stats() {
                 // === VISTA DE LOGROS ===
                 <div className="flex flex-wrap justify-center gap-12">
                     {logros.map((item, i) => (
-                        <div key={i} className="flex flex-col items-center">
-                            <div className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                        <div
+                            key={i}
+                            className="flex flex-col items-center"
+                        >
+                        <img
+                            src={item.icon}
+                            alt={item.label}
+                            className="w-10 h-10 mb-3 text-emerald-500"
+                        />
+                        <div 
+                            className="w-24 h-24 
+                            bg-emerald-500 rounded-full 
+                            flex items-center justify-center 
+                            text-white text-2xl font-bold">
                                 {item.value}
-                            </div>
+                        </div>
                             <p className="mt-4 font-medium">{item.label}</p>
                         </div>
                     ))}

@@ -15,9 +15,13 @@ function App() {
   const statsRef = useRef(null);
 
   const [showLogin, setShowLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLoginSuccess = (role) => {
     alert(`Conectado como ${role}`);
+    if(role === 'admin'){
+      setIsAdmin(true);
+    }
     setShowLogin(false);
 
     //Volver al inicio de la página
@@ -57,8 +61,10 @@ function App() {
               }}
             />
           </section>
-          <section ref={serviciosRef}><CardSection /></section>
-          <section ref={galeriaRef}><Gallery /></section>
+          <section ref={serviciosRef}><CardSection isAdmin={isAdmin}/></section>
+          <section ref={galeriaRef}>
+            <Gallery/>
+          </section>
           <section ref={statsRef}><Stats /></section>
           <Footer
             onNavigate={(section) => {
