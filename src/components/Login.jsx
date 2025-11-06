@@ -4,6 +4,35 @@ export default function Login({ onBackClick, onLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("http://localhost:8080/usuarios/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ correo: email, contrasena: password}),
+            });
+
+            if (!res.ok) {
+                throw new Error("Error en la solicitud");
+            }
+
+            const data = await res.json();
+            console.log("Respuesta del servidor:", data);
+
+            if (data.status === "error") {
+                alert("Credenciales incorrectas ❌");
+            } else {
+                alert(`Conectado como ${data.rol}`);
+                onLogin(data); // Envía los datos al componente principal (App)
+                console.log("Usuario logueado:", data);
+            }
+        } catch (err) {
+            console.error("Error al iniciar sesión:", err);
+        }
+    };
+    /*
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -16,7 +45,7 @@ export default function Login({ onBackClick, onLogin }) {
         // Llamar a la función enviada por props
         onLogin(role);
     };
-
+    */
     return (
         <section
             id="login"

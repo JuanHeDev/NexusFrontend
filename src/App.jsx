@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import CardSection from "./components/CardSection";
 import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";
@@ -14,25 +15,37 @@ function App() {
   const galeriaRef = useRef(null);
   const statsRef = useRef(null);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [role, setRole] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //Estado de sesión
+  const [showLogin, setShowLogin] = useState(false); //Mostrar componente de login
+  const [user, setUser] = useState(null); //Datos del usuario
 
-  const handleLogin = (role) => {
+  const handleLogin = (userData) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    console.log("Datos recibidos en App:", userData);
     setIsLoggedIn(true);
-    setRole(role);
     setShowLogin(false);
-    alert(`Conectado como ${role === "admin" ? "Administrador" : "Usuario"}`);
     //Volver al inicio de la página
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
     setIsLoggedIn(false);
-    setRole(null);
     alert("Sesión cerrada correctamente 👋");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  //Habilitar sesión si hay datos en localStorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setIsLoggedIn(true);
+    }
+  }, []);
+
 
   return (
     <div className="bg-slate-100 text-slate-900">
@@ -69,9 +82,9 @@ function App() {
               }}
             />
           </section>
-          <section ref={serviciosRef}><CardSection isAdmin={role === "admin"}/></section>
+          <section ref={serviciosRef}><CardSection isAdmin={user?.rol === "admin"} /></section>
           <section ref={galeriaRef}>
-            <Gallery/>
+            <Gallery />
           </section>
           <section ref={statsRef}><Stats /></section>
           <Footer
