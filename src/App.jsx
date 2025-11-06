@@ -14,17 +14,23 @@ function App() {
   const galeriaRef = useRef(null);
   const statsRef = useRef(null);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [role, setRole] = useState(null);
 
-  const handleLoginSuccess = (role) => {
-    alert(`Conectado como ${role}`);
-    if(role === 'admin'){
-      setIsAdmin(true);
-    }
+  const handleLogin = (role) => {
+    setIsLoggedIn(true);
+    setRole(role);
     setShowLogin(false);
-
+    alert(`Conectado como ${role === "admin" ? "Administrador" : "Usuario"}`);
     //Volver al inicio de la página
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setRole(null);
+    alert("Sesión cerrada correctamente 👋");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -40,13 +46,15 @@ function App() {
           galeriaRef,
           statsRef,
         }}
-        onAccessClick={() => setShowLogin(!showLogin)}
+        isLoggedIn={isLoggedIn}
+        onLoginClick={() => setShowLogin(true)}
+        onLogoutClick={handleLogout}
       />
       {/* Renderizado condicional */}
       {showLogin ? (
         <Login
           onBackClick={() => setShowLogin(false)}
-          onLoginSuccess={handleLoginSuccess}
+          onLogin={handleLogin}
         />
       ) : (
         <>
@@ -61,7 +69,7 @@ function App() {
               }}
             />
           </section>
-          <section ref={serviciosRef}><CardSection isAdmin={isAdmin}/></section>
+          <section ref={serviciosRef}><CardSection isAdmin={role === "admin"}/></section>
           <section ref={galeriaRef}>
             <Gallery/>
           </section>

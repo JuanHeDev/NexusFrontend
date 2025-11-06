@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Login({ onBackClick, onLoginSuccess }) {
+export default function Login({ onBackClick, onLogin }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -13,8 +13,8 @@ export default function Login({ onBackClick, onLoginSuccess }) {
             role = "admin";
         }
 
-        // Llamar a la función enviada por App
-        onLoginSuccess(role);
+        // Llamar a la función enviada por props
+        onLogin(role);
     };
 
     return (

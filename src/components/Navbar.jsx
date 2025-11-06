@@ -1,4 +1,4 @@
-export default function Navbar({ onNavigate, refs, onAccessClick }) {
+export default function Navbar({ onNavigate, refs, isLoggedIn, onLoginClick, onLogoutClick }) {
     return (
         <nav className="bg-slate-900 text-white flex justify-between items-center px-8 py-4">
             <div className="text-xl font-bold">Nexus</div>
@@ -17,10 +17,13 @@ export default function Navbar({ onNavigate, refs, onAccessClick }) {
                 </li>
             </ul>
             <button
-                onClick={onAccessClick}
-                className="bg-emerald-500 px-4 py-2 rounded-lg hover:bg-emerald-600"
+                onClick={isLoggedIn ? onLogoutClick : onLoginClick}
+                className={`px-4 py-2 rounded-lg font-medium transition ${isLoggedIn
+                        ? "bg-red-500 text-white hover:bg-red-600"
+                        : "bg-emerald-500 text-white hover:bg-emerald-600"
+                    }`}
             >
-                Acceder
+                {isLoggedIn ? "Cerrar sesión" : "Acceder"}
             </button>
         </nav>
     );
