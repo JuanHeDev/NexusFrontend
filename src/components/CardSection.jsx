@@ -35,16 +35,38 @@ export default function CardSection({ isAdmin }) {
         setCards([...cards, data]);
     };
 
-    const handleEdit = async (id, newTitle, newDesc) => {
-        const updated = { titulo: newTitle, descripcion: newDesc };
-        const res = await fetch(`http://localhost:8080/servicios/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updated)
-        });
-        const data = await res.json();
-        setCards(cards.map(c => (c.id === id ? data : c)));
+    const handleEdit = async (id, newTitle, newDesc, newImageUrl) => {
+        try {
+            // Construimos el objeto actualizado
+            const updated = {
+                titulo: newTitle,
+                descripcion: newDesc,
+                imagenUrl: newImageUrl, 
+            };
+
+            const res = await fetch(`http://localhost:8080/servicios/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updated),
+            });
+
+            if (!res.ok) {
+                throw new Error("Error al actualizar el servicio");
+            }
+
+            // Convertimos la respuesta en JSON
+            const data = await res.json();
+
+            // Actualizamos el estado local
+            setCards(cards.map((c) => (c.id === id ? data : c)));
+
+            console.log("✅ Servicio actualizado:", data);
+        } catch (error) {
+            console.error("❌ Error al editar servicio:", error);
+            alert("Ocurrió un error al actualizar el servicio.");
+        }
     };
+
 
     const handleDelete = async (id) => {
         await fetch(`http://localhost:8080/servicios/${id}`, { method: "DELETE" });
