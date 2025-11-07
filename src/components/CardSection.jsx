@@ -1,35 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "./Card";
 
-export default function CardSection({isAdmin}) {
-    const [cards, setCards] = useState([
-        { id: 1, title: "Servicio destacado", desc: "Breve descripción del servicio o producto." },
-        { id: 2, title: "Automatización empresarial", desc: "Implementación de sistemas integrales para optimizar procesos." },
-        { id: 3, title: "Desarrollo web", desc: "Creamos soluciones digitales modernas y escalables." },
-    ]);
+export default function CardSection({ isAdmin }) {
+    const [cards, setCards] = useState([]);
+
+    // === CARGAR DESDE EL BACKEND ===
+    useEffect(() => {
+        const fetchServicios = async () => {
+            try {
+                const res = await fetch("http://localhost:8080/servicios");
+                const data = await res.json();
+                console.log("Servicios cargados:", data);
+                setCards(data);
+            } catch (error) {
+                console.error("Error cargando servicios:", error);
+            }
+        };
+        fetchServicios();
+    }, []);
 
     // === FUNCIONES ADMIN ===
-    const handleDelete = (id) => {
-        setCards(cards.filter((card) => card.id !== id));
-    };
-
-    const handleEdit = (id, newTitle, newDesc) => {
-        setCards(
-            cards.map((card) =>
-                card.id === id ? { ...card, title: newTitle, desc: newDesc } : card
-            )
-        );
-    };
-
-    const handleAdd = () => {
-        const newCard = {
-            id: Date.now(),
-            title: "Nuevo servicio",
-            desc: "Descripción pendiente de actualizar.",
+    const handleAdd = async () => {
+        const nuevoServicio = {
+            titulo: "Nuevo servicio",
+            descripcion: "Descripción pendiente...",
+            imagenUrl: "https://drive.google.com/uc?id=ID_DE_LA_IMAGEN"
         };
-        setCards([...cards, newCard]);
+        const res = await fetch("http://localhost:8080/servicios", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevoServicio)
+        });
+        const data = await res.json();
+        setCards([...cards, data]);
     };
-    
+
+    const handleEdit = async (id, newTitle, newDesc) => {
+        const updated = { titulo: newTitle, descripcion: newDesc };
+        const res = await fetch(`http://localhost:8080/servicios/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updated)
+        });
+        const data = await res.json();
+        setCards(cards.map(c => (c.id === id ? data : c)));
+    };
+
+    const handleDelete = async (id) => {
+        await fetch(`http://localhost:8080/servicios/${id}`, { method: "DELETE" });
+        setCards(cards.filter(c => c.id !== id));
+    };
+
     return (
         <section className="py-16 px-6 md:px-12">
             <h2 className="text-3xl font-bold text-center mb-10">Nuestros Servicios</h2>
@@ -52,8 +73,9 @@ export default function CardSection({isAdmin}) {
                     <Card
                         key={c.id}
                         id={c.id}
-                        title={c.title}
-                        desc={c.desc}
+                        titulo={c.titulo}
+                        descripcion={c.descripcion}
+                        imagenUrl={c.imagenUrl}
                         isAdmin={isAdmin}
                         onDelete={handleDelete}
                         onEdit={handleEdit}

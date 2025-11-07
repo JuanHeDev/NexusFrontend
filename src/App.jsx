@@ -1,6 +1,4 @@
-import { useRef } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import CardSection from "./components/CardSection";
 import Footer from "./components/Footer";
 import Gallery from "./components/Gallery";

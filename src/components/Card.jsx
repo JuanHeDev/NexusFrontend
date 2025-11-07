@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-export default function Card({ id, title, desc, isAdmin, onDelete, onEdit }) {
+export default function Card({ id, titulo, descripcion, imagenUrl, isAdmin, onDelete, onEdit }) {
     const [isEditing, setIsEditing] = useState(false);
-    const [editTitle, setEditTitle] = useState(title);
-    const [editDesc, setEditDesc] = useState(desc);
+    const [editTitle, setEditTitle] = useState(titulo);
+    const [editDesc, setEditDesc] = useState(descripcion);
 
     const handleSave = () => {
         onEdit(id, editTitle, editDesc);
@@ -12,8 +12,13 @@ export default function Card({ id, title, desc, isAdmin, onDelete, onEdit }) {
 
     return (
         <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition relative">
-            {/* Imagen de ejemplo */}
-            <div className="h-40 bg-slate-300 rounded-lg mb-4"></div>
+            {imagenUrl && (
+                <img
+                    src={imagenUrl}
+                    alt={titulo}
+                    className="w-full h-48 object-cover rounded-lg mb-4"
+                />
+            )}
 
             {isEditing ? (
                 <>
@@ -45,8 +50,8 @@ export default function Card({ id, title, desc, isAdmin, onDelete, onEdit }) {
                 </>
             ) : (
                 <>
-                    <h3 className="font-semibold text-lg mb-2">{title}</h3>
-                    <p className="text-slate-600 text-sm mb-4">{desc}</p>
+                    <h3 className="font-semibold text-lg mb-2">{titulo}</h3>
+                    <p className="text-slate-600 text-sm mb-4">{descripcion}</p>
 
                     {/* Botones admin */}
                     {isAdmin && (

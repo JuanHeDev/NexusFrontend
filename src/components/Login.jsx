@@ -24,7 +24,7 @@ export default function Login({ onBackClick, onLogin }) {
             if (data.status === "error") {
                 alert("Credenciales incorrectas ❌");
             } else {
-                alert(`Conectado como ${data.rol}`);
+                alert(`Conectado como ${data.rol} ✅`);
                 onLogin(data); // Envía los datos al componente principal (App)
                 console.log("Usuario logueado:", data);
             }
@@ -32,20 +32,7 @@ export default function Login({ onBackClick, onLogin }) {
             console.error("Error al iniciar sesión:", err);
         }
     };
-    /*
-    const handleSubmit = (e) => {
-        e.preventDefault();
 
-        // Determinar rol según el email
-        let role = "usuario";
-        if (email.toLowerCase().includes("admin")) {
-            role = "admin";
-        }
-
-        // Llamar a la función enviada por props
-        onLogin(role);
-    };
-    */
     return (
         <section
             id="login"
